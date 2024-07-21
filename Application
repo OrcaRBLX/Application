@@ -1,0 +1,52 @@
+--ADD AN BOOL VALUE AND NAME IT: IsSprinting (It's A Bool Value)
+--ADD AN ANIMATION AND NAME IT: Sprint (R6)
+
+
+
+--Basic Sprint Script By CFT_NotSeishin -- The Person Applying To Be A Dev :)
+
+local anim = script.Sprint
+
+
+
+local player = game.Players.LocalPlayer
+local SprintAnim = player.Character.Humanoid:LoadAnimation(anim)
+local userInputService = game:GetService("UserInputService")
+
+local walkingSpeed = 16
+local sprintingSpeed = 32
+
+
+userInputService.InputBegan:Connect(function(input)
+	if input.KeyCode == Enum.KeyCode.LeftShift then
+		player.Character.Humanoid.WalkSpeed = sprintingSpeed
+		
+
+		
+		script.IsSprinting.Value = true
+		
+		if script.IsSprinting.Value == true then
+			SprintAnim:Play()
+		else
+			SprintAnim:Stop()
+			player.Character.Humanoid.WalkSpeed = walkingSpeed
+		end		
+		
+		
+	end
+	
+	userInputService.InputEnded:Connect(function(input)
+		if input.KeyCode == Enum.KeyCode.LeftShift then
+
+			player.Character.Humanoid.WalkSpeed = walkingSpeed
+			script.IsSprinting.Value = false
+
+			if script.IsSprinting.Value == false then
+				SprintAnim:Stop()
+			else
+				player.Character.Humanoid.WalkSpeed = sprintingSpeed
+				SprintAnim:Play()
+			end	
+		end
+	end)
+end)
